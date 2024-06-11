@@ -3,7 +3,7 @@ import {
   FromTypeEnum,
   messageIProps,
 } from "@/types/message-types";
-import getBotResponse from "@/utils/getBotResponse";
+import getBotResponse, { fetchResponseFromPythonModal } from "@/utils/getBotResponse";
 import React, { useState } from "react";
 import { RiAttachment2 } from "react-icons/ri";
 import { TbSend } from "react-icons/tb";
@@ -29,7 +29,8 @@ const ChatBotFooter = ({ setMessage,setLoading }: ChatBoxFooterIprops) => {
 
   const handleBotResponse = async (message: string) => {
     setLoading(true)
-    const botResponse = await getBotResponse(message);
+    // const botResponse = await getBotResponse(message);
+    const botResponse = await fetchResponseFromPythonModal(message);
     setMessage((prevMessages) => [...prevMessages, botResponse]);
     setLoading(false);
   };

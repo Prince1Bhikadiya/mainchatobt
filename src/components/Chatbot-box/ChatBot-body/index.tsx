@@ -3,28 +3,49 @@ import React, { useRef, useEffect } from "react";
 import { MesaagesBox } from "./MessageBox";
 import ChatLoading from "@/components/common/loading";
 
-const ChatbotBody = ({ messages,chatLoading }: ChatBodyIprops) => {
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+import emptyMessage from "../../../assets/email.png";
+import { Image } from "@nextui-org/image";
 
-  const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+const ChatbotBody = ({ messages, chatLoading }: ChatBodyIprops) => {
+	const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+	const scrollToBottom = () => {
+		if (messagesEndRef.current) {
+			messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 
-  return (
-    <div className="w-full h-64 px-3 py-1 overflow-y-auto scroll dark:bg-slate-900">
-      {messages.map((items: messageIProps, index: number) => (
-        <MesaagesBox key={index} message={items.message} from={items.from} />
-      ))}
-	  {chatLoading&&<ChatLoading />}
-      <div ref={messagesEndRef} />
-    </div>
-  );
+	useEffect(() => {
+		scrollToBottom();
+	}, [messages]);
+
+	return (
+		<div className="w-full h-64 px-3 py-1 overflow-y-auto scroll dark:bg-slate-900">
+			{messages.length === 0 && (
+				<div
+					className={`w-full h-full flex justify-center items-center flex-col`}
+				>
+					<Image
+						width={70}
+						alt="Empty Message"
+						src={emptyMessage.src}
+					/>
+					<span className={`text-sm`}>
+						There is no any message...
+					</span>
+				</div>
+			)}
+			{messages.map((items: messageIProps, index: number) => (
+				<MesaagesBox
+					key={index}
+					message={items.message}
+					from={items.from}
+				/>
+			))}
+			{chatLoading && <ChatLoading />}
+			<div ref={messagesEndRef} />
+		</div>
+	);
 };
 
 export default ChatbotBody;

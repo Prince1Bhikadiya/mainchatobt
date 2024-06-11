@@ -4,12 +4,11 @@ import React, { useState } from "react";
 import ChatbotHeader from "./Chatbot-header";
 import ChatbotBody from "./ChatBot-body";
 import ChatBotFooter from "./Chatbot-footer";
-import { dummyMessages } from "@/dummyData/dummyMessages";
 import { ChatBotBoxIProps, messageIProps } from "@/types/message-types";
 import { IoClose } from "react-icons/io5";
 
 const ChatbotBox = ({ show,setShow }: ChatBotBoxIProps) => {
-	const [messages, setMessage] = useState<messageIProps[]>(dummyMessages);
+	const [messages, setMessage] = useState<messageIProps[]>([]);
 	const [botLoading,setBotLoading]=useState<boolean>(false);
 
 	const hideChatBox=()=>{

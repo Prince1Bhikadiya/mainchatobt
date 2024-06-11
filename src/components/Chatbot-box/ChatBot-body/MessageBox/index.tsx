@@ -3,6 +3,7 @@ import { FromTypeEnum, messageIProps } from "@/types/message-types";
 export const MesaagesBox = ({ message, from }: messageIProps) => {
 	return (
 		<div
+    
             className={`w-full h-auto grid grid-cols-1 gap-2 my-2 ${
               from === FromTypeEnum.BOT ? " place-items-start" : "place-items-end"
             }`}
